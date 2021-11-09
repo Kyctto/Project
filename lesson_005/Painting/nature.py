@@ -70,5 +70,3 @@ def snowfall(snowflake_value= 5):
 
         if sd.user_want_exit():
             break
-snowfall()
-sd.pause()

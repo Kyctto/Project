@@ -35,5 +35,3 @@ def wall():
         y_start_left += 50
         y_right_corner = y_start_left + 50
 
-wall()
-sd.pause()
