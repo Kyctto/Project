@@ -49,8 +49,9 @@ def house(left_cornerX= 1,left_cornerY= 100):
     right_corner = sd.get_point(left_cornerX + house_length, left_cornerY)
     sd.vector(right_corner, angle= 90, length= house_higth, color= sd.COLOR_RED)
 
-    #  Рисуем крышу
+    # TODO Рисуем крышу, надо отрисовать треугольник по списку точек
 
+    sd.polygon()
 
 
 house()
