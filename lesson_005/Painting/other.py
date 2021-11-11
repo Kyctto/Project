@@ -34,4 +34,3 @@ def wall():
         x_right_corner = x_start_left + 100
         y_start_left += 50
         y_right_corner = y_start_left + 50
-
