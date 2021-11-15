@@ -12,12 +12,12 @@ def rainbow(radius= 400, start_point_x= 300 , start_point_y= -200):
     for color in rainbow_colors:
         sd.circle(center_position=point, radius=radius,color=color, width=10)
         radius += step
-    sd.pause()
 
 
 
 
-def tree (start_point, angle, length):
+
+def tree (start_point, angle=90, length=70):
 
     if length < 4:
         return

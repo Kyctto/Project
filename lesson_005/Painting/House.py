@@ -1,7 +1,7 @@
 import simple_draw
-simple_draw.resolution = (900,600)
 
-def house(left_cornerX= 1,left_cornerY= 100):
+
+def house(left_cornerX= 50,left_cornerY= 70) -> object:
     import simple_draw as sd
 
     # параметры дома и кирпича
@@ -49,10 +49,23 @@ def house(left_cornerX= 1,left_cornerY= 100):
     right_corner = sd.get_point(left_cornerX + house_length, left_cornerY)
     sd.vector(right_corner, angle= 90, length= house_higth, color= sd.COLOR_RED)
 
-    # TODO Рисуем крышу, надо отрисовать треугольник по списку точек
+    # Рисуем крышу
+    x1=sd.get_point(left_cornerX-30, right_cornerY)
+    x2=sd.get_point(right_cornerX +30,right_cornerY)
+    x3=sd.get_point(left_cornerX + house_length/2, left_cornerY + house_higth + 60)
+    point_list = [x1, x2, x3]
+    sd.polygon(point_list=point_list,width=0, color=sd.COLOR_DARK_RED)
 
-    sd.polygon()
+    # Рисуем окно
+    left_bottom = sd.get_point(left_cornerX + house_length/3,left_cornerY + house_higth/3)
+    right_top = sd.get_point(left_cornerX + house_length/3 + 150, left_cornerY + house_higth/3 + 100)
+    sd.rectangle(left_bottom=left_bottom, right_top=right_top, width=0, color=sd.background_color)
 
+    # рисуем рамку
+    left_bottom = sd.get_point(left_cornerX + house_length/3 -1,left_cornerY + house_higth/3 -1)
+    right_top = sd.get_point(left_cornerX + house_length/3 + 151, left_cornerY + house_higth/3 + 101)
+    sd.rectangle(left_bottom=left_bottom, right_top=right_top, width=1, color=sd.COLOR_DARK_YELLOW)
 
-house()
-simple_draw.pause()
+if __name__ == "__main__":
+    house()
+    simple_draw.pause()

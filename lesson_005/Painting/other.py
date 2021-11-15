@@ -1,6 +1,6 @@
 import simple_draw as sd
 
-def smile(coordinateX, coordinateY, color):
+def smile(coordinateX, coordinateY, color: object):
     point = sd.get_point(coordinateX, coordinateY)
     # Рисуем круг
     sd.circle(center_position=point, color=color)
