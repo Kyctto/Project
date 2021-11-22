@@ -47,4 +47,13 @@ from mastermind_engine import create_number
 from mastermind_engine import guess_the_number
 
 create_number()
-
+try_valuse = 1
+while True:
+    number = input('Введите число ')
+    print(guess_the_number(client_number=number))
+    if guess_the_number(number) == {'Bulls': 4, 'Cows': 0}:
+        print("Вы отгадали верное число -", number)
+        print('Вам потребовалось ',try_valuse,' попыток')
+        print('Хотите сыгарть ещё?')
+        break
+    try_valuse += 1
