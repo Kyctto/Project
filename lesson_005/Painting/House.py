@@ -1,7 +1,5 @@
 import simple_draw
-
-
-def house(left_cornerX= 50,left_cornerY= 70) -> object:
+def house(left_cornerX= 50,left_cornerY= 70):
     import simple_draw as sd
 
     # параметры дома и кирпича
