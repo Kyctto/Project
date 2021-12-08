@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from random import randint
 
 # Доработать практическую часть урока lesson_007/python_snippets/08_practice.py
 
