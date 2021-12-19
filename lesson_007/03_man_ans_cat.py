@@ -172,7 +172,7 @@ class House:
 #     Man(name='Батхед'),
 #     Man(name='Кенни'),
 # ]
-
+#  пробуем ветки Develop
 
 my_sweet_home = House()
 # for citisen in citizens:
