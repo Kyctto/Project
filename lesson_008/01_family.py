@@ -3,6 +3,7 @@
 from termcolor import cprint
 from random import randint
 
+
 ######################################################## Часть первая
 #
 # Создать модель жизни небольшой семьи.
@@ -44,18 +45,17 @@ from random import randint
 
 class House:
 
-
     def __init__(self):
         self.house_money = 100
         self.house_eat = 50
         self.house_enviroment = 0
 
     def __str__(self):
-        return 'В доме сейчас {} денег, {} еды, загрязнен на {} процентов' .format(self.house_money,
-        self.house_eat, self.house_enviroment)
+        return 'В доме сейчас {} денег, {} еды, загрязнен на {} процентов'.format(self.house_money,
+                                                                                  self.house_eat, self.house_enviroment)
 
     def act(self):
-        self.house_enviroment +=5
+        self.house_enviroment += 5
 
 
 class Man():
@@ -69,7 +69,6 @@ class Man():
     def __str__(self):
         return '{}: сытоcть - {}, счастье - {}'.format(self.name, self.fullness, self.happyness)
 
-
     def go_to_the_house(self, house):
         self.house = house
         cprint('{} Вьехал в дом'.format(self.name), color='cyan')
@@ -82,29 +81,29 @@ class Man():
     def act(self):
         if self.house.house_enviroment > 90:
             self.happyness -= 10
-        if self.happyness < 10:
-            cprint('{} умер от депрессии'.format(self.name), color='red')
-            return False
         if self.fullness <= 0:
             cprint('{} умер от голода'.format(self.name), color='red')
             return False
+        if self.happyness < 10:
+            cprint('{} умер от депрессии'.format(self.name), color='red')
+            return False
+
         return True
 
-class Husband(Man):
 
+class Husband(Man):
 
     def __str__(self):
         return 'Муж ' + super().__str__()
 
     def act(self):
         if super().act():
-            if self.fullness <=30 and self.house.house_eat > 30:
+            if self.fullness <= 30 and self.house.house_eat > 30:
                 self.eat()
             elif self.happyness <= 50:
                 self.gaming()
             else:
                 self.work()
-
 
     # def eat(self):
     #     pass
@@ -122,25 +121,39 @@ class Husband(Man):
 
 class Wife(Man):
 
-
-
     def __str__(self):
-        return 'Жена '+ super().__str__()
+        return 'Жена ' + super().__str__()
 
     def act(self):
-        pass
-
-    def eat(self):
-        pass
+        if super().act():
+            if self.fullness <= 30 and self.house.house_eat > 30:
+                self.eat()
+            elif self.house.house_eat <= 60:
+                self.shopping()
+            elif self.happyness < 50:
+                self.buy_fur_coat()
+            else:
+                self.clean_house()
 
     def shopping(self):
-        pass
+        self.fullness -= 10
+        self.house.house_money -= 100
+        self.house.house_eat += 100
+        cprint('{} купила продукты'.format(self.name), color='blue')
 
     def buy_fur_coat(self):
-        pass
+        self.fullness -= 10
+        self.house.house_money -= 350
+        self.happyness += 60
+        cprint('{} купила шубу'.format(self.name), color='blue')
 
     def clean_house(self):
-        pass
+        self.fullness -= 10
+        if self.house.house_enviroment < 100:
+            self.house.house_enviroment -= self.house.house_enviroment
+        else:
+            self.house.house_enviroment -= 100
+        cprint('{} убралась дома'.format(self.name), color='blue')
 
 
 home = House()
@@ -148,7 +161,7 @@ serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
 
 serge.go_to_the_house(house=home)
-
+masha.go_to_the_house(house=home)
 for day in range(365):
     cprint('================== День {} =================='.format(day), color='red')
     home.act()
@@ -158,7 +171,6 @@ for day in range(365):
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
 
-# TODO после реализации первой части - отдать на проверку учителю
 
 ######################################################## Часть вторая
 #
@@ -231,7 +243,6 @@ class Child:
     def sleep(self):
         pass
 
-
 # TODO после реализации второй части - отдать на проверку учителем две ветки
 
 
@@ -281,4 +292,3 @@ class Child:
 #       for salary in range(50, 401, 50):
 #           max_cats = life.experiment(salary)
 #           print(f'При зарплате {salary} максимально можно прокормить {max_cats} котов')
-
