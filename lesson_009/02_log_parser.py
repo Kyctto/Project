@@ -27,39 +27,58 @@ class LogParser:
         with open(file='result.txt', mode='w', encoding='utf8') as file:
             pass
 
-
-
-
     def collect(self):
         with open(self.file_name, 'r') as file:
             for line in file:
                 if line.endswith('NOK\n'):
-                    self.write(line=line)
+                    self.metering(line=line)
+            self.write()
 
-
-    def write(self, line):
+    def _line_convert(self, line):
         line = line[0:17]
+        return line
+
+    def metering(self, line):
+        line = self._line_convert(line=line)
         if self.prev_line is None:
             self.meter += 1
             self.prev_line = line
 
         elif line != self.prev_line:
-            with open(file='result.txt', mode='a',  encoding='utf8') as file:
-                line_to_write = self.prev_line + '] ' + str(self.meter) + '\n'
-                file.write(line_to_write)
+            self.write()
             self.meter = 1
             self.prev_line = line
         else:
             self.meter +=1
 
+    def write(self):
+
+        with open(file='result.txt', mode='a', encoding='utf8') as file:
+            line_to_write = self.prev_line + '] ' + str(self.meter) + '\n'
+            file.write(line_to_write)
 
 
-pars = LogParser(file_name='events.txt')
+
+
+
+
+class LogParserHour(LogParser):
+    def _line_convert(self, line):
+        line = line[0:14]
+        return line
+
+class LogParserMonth(LogParser):
+    def _line_convert(self, line):
+        line = line[0:8]
+        return line
+
+class LogParserYear(LogParser):
+    def _line_convert(self, line):
+        line = line[0:5]
+        return line
+
+pars = LogParserYear(file_name='events.txt')
 pars.collect()
-
-
-
-
 
 
 # После выполнения первого этапа нужно сделать группировку событий
