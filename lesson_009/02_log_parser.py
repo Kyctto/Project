@@ -19,7 +19,48 @@
 # Входные параметры: файл для анализа, файл результата
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
-# TODO здесь ваш код
+class LogParser:
+    def __init__(self, file_name):
+        self.file_name = file_name
+        self.prev_line = None
+        self.meter = 0
+        with open(file='result.txt', mode='w', encoding='utf8') as file:
+            pass
+
+
+
+
+    def collect(self):
+        with open(self.file_name, 'r') as file:
+            for line in file:
+                if line.endswith('NOK\n'):
+                    self.write(line=line)
+
+
+    def write(self, line):
+        line = line[0:17]
+        if self.prev_line is None:
+            self.meter += 1
+            self.prev_line = line
+
+        elif line != self.prev_line:
+            with open(file='result.txt', mode='a',  encoding='utf8') as file:
+                line_to_write = self.prev_line + '] ' + str(self.meter) + '\n'
+                file.write(line_to_write)
+            self.meter = 1
+            self.prev_line = line
+        else:
+            self.meter +=1
+
+
+
+pars = LogParser(file_name='events.txt')
+pars.collect()
+
+
+
+
+
 
 # После выполнения первого этапа нужно сделать группировку событий
 #  - по часам
