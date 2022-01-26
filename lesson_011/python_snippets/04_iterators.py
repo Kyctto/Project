@@ -85,7 +85,7 @@ class Fibonacci:
 
     def __next__(self):
         self.i += 1
-        if self.i > 1:
+        if self.i  > 1:
             if self.i > self.n:
                 raise StopIteration()
             self.a, self.b = self.b, self.a + self.b
