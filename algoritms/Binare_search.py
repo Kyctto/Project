@@ -50,13 +50,13 @@ def binary_search(list, find_value):
             iter_value += 1
     return None
 
-
-n = 2**25
-print (n)
-list = sorted_list(n)
-find_value = randint(0, n)
-lin_search(list=list, find_value=find_value)
-binary_search(list=list, find_value=find_value)
+#
+# n = 2**25
+# print (n)
+# list = sorted_list(n)
+# find_value = randint(0, n)
+# lin_search(list=list, find_value=find_value)
+# binary_search(list=list, find_value=find_value)
 
 
 
