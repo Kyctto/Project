@@ -26,7 +26,7 @@ def get_polygon(n):
     return draw_triangle
 
 
-draw_triangle = get_polygon(n=8)
-draw_triangle(point=sd.get_point(200, 200), angle=13, length=100)
+draw_triangle = get_polygon(n=3)
+draw_triangle(point=sd.get_point(200, 200), angle=0, length=200)
 
 sd.pause()

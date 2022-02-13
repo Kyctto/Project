@@ -77,7 +77,7 @@ class LogParserYear(LogParser):
         line = line[0:5]
         return line
 
-pars = LogParserYear(file_name='events.txt')
+pars = LogParser(file_name='events.txt')
 pars.collect()
 
 

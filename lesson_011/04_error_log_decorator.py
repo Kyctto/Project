@@ -7,19 +7,27 @@
 # Формат лога: <имя функции> <параметры вызова> <тип ошибки> <текст ошибки>
 # Лог файл открывать каждый раз при ошибке в режиме 'a'
 
-
-def log_errors(func):
-    pass
-    # TODO здесь ваш код
+def log_file_errors(filename):
+    def log_errors(func):
+        def surogate(*args, **kwargs):
+            try:
+                result = func(*args, **kwargs)
+            except Exception as exc:
+                with open(file=filename, mode='a', encoding='utf8') as file:
+                    file.write(f'{func.__name__}, {args, kwargs}, {exc.__class__}, {exc.__str__()} \n')
+                raise exc
+            return result
+        return surogate
+    return log_errors
 
 
 # Проверить работу на следующих функциях
-@log_errors
+@log_file_errors(filename='perky_errors.log')
 def perky(param):
     return param / 0
 
 
-@log_errors
+@log_file_errors(filename='check_line_errors.log')
 def check_line(line):
     name, email, age = line.split(' ')
     if not name.isalpha():
@@ -43,8 +51,10 @@ for line in lines:
         check_line(line)
     except Exception as exc:
         print(f'Invalid format: {exc}')
-perky(param=42)
-
+try:
+    perky(param=42)
+except ZeroDivisionError:
+    print('Деление на ноль')
 
 # Усложненное задание (делать по желанию).
 # Написать декоратор с параметром - именем файла

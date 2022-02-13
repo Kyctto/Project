@@ -7,7 +7,6 @@ class PrimeNumbers:
 
     def __init__(self, n):
         self.n = n
-
         self.prime_numbers = []
 
     def __iter__(self):
@@ -26,6 +25,7 @@ class PrimeNumbers:
                 return number
         raise StopIteration()
 
+
 def get_prime_numbers(n):
     prime_numbers = []
     for number in range(2, n + 1):
@@ -37,7 +37,7 @@ def get_prime_numbers(n):
     return prime_numbers
 
 
-print(get_prime_numbers(n=100))
+# print(get_prime_numbers(n=100))
 
 
 # Часть 1
@@ -46,7 +46,7 @@ print(get_prime_numbers(n=100))
 #
 # Распечатать все простые числа до 10000 в столбик
 
-
+#
 # prime_number_iterator = PrimeNumbers(n=10000)
 # for number in prime_number_iterator:
 #     print(number)
@@ -58,21 +58,19 @@ print(get_prime_numbers(n=100))
 
 
 def prime_numbers_generator(n):
-        i = 2
-        prime_numbers = []
-        for number in range(i, n + 1):
-            for prime in prime_numbers:
-                if number % prime == 0:
-                    break
-            else:
-                i = number
-                prime_numbers.append(i)
-                yield i
+    i = 2
+    prime_numbers = []
+    for number in range(i, n + 1):
+        for prime in prime_numbers:
+            if number % prime == 0:
+                break
+        else:
+            prime_numbers.append(number)
+            yield number
 
 
-for number in prime_numbers_generator(n=10000):
-    print(number)
-
+# for number in prime_numbers_generator(n=100000):
+#     print(number)
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
@@ -89,3 +87,50 @@ for number in prime_numbers_generator(n=10000):
 # простых счастливых палиндромных чисел и так далее. Придумать не менее 2х способов.
 #
 # Подсказка: возможно, нужно будет добавить параметр в итератор/генератор.
+
+def check_happy_number(number):
+    str_number = str(number)
+    if len(str_number) <= 2:
+        return False
+    if len(str_number) % 2 == 0:
+        middle_index = int(len(str_number) / 2)
+        first_half = sum([int(x) for x in str_number[:middle_index]])
+        second_half = sum([int(x) for x in str_number[middle_index:]])
+    else:
+        middle_index = int((len(str_number) - 1) / 2)
+        first_half = sum([int(x) for x in str_number[:middle_index]])
+        second_half = sum([int(x) for x in str_number[middle_index + 1:]])
+    if first_half == second_half:
+        return True
+
+
+def check_polindrome(number):
+    str_number = str(number)
+    if len(str_number) <= 2:
+        return False
+    if len(str_number) % 2 == 0:
+        middle_index = int(len(str_number) / 2)
+        first_half = [x for x in str_number[:middle_index]]
+        second_half = [x for x in str_number[-1:middle_index - 1:-1]]
+    else:
+        middle_index = int((len(str_number) - 1) / 2)
+        first_half = [x for x in str_number[:middle_index]]
+        second_half = [x for x in str_number[-1:middle_index:-1]]
+    if first_half == second_half:
+        return True
+
+
+# for number in prime_numbers_generator(n=100000):
+#     if check_polindrome(number):
+#         print(number)
+
+
+def check_mersenn_number(number):
+    for n in range(500):
+        if number == 2 ** n - 1:
+            return True
+
+
+for number in prime_numbers_generator(n=1000000):
+    if check_mersenn_number(number):
+        print(number)
