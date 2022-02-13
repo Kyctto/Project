@@ -1,0 +1,3 @@
+check_line, (('Ярослав bxh@ya.ru 600',), {}), <class 'ValueError'>, Age not in 10..99 range 
+check_line, (('Тролль nsocnzas.mail.ru 82',), {}), <class 'ValueError'>, it's not a email 
+check_line, (('Земфира 86',), {}), <class 'ValueError'>, not enough values to unpack (expected 3, got 2) 

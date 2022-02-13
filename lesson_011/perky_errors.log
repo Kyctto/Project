@@ -1,0 +1,1 @@
+perky, ((), {'param': 42}), <class 'ZeroDivisionError'>, division by zero 
