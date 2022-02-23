@@ -20,3 +20,63 @@
 # TODO Внимание! это задание можно выполнять только после зачета lesson_012/01_volatility.py !!!
 
 # TODO тут ваш код в многопоточном стиле
+
+
+import os
+import threading
+from  lesson_012.python_snippets.utils import time_track
+
+
+
+class VolatilityAnalyzer(threading.Thread):
+
+    def __init__(self, path, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.path = path
+        self.result_dict = {}
+        self.zero_vol_list = []
+    def run(self):
+        for dirpath, dirnames, filenames in os.walk(self.path):
+            for file in filenames:
+                full_path = os.path.join(dirpath, file)
+                secid, volotility = self._get_secid_volotility(path = full_path)
+                if volotility == 0.0:
+                    self.zero_vol_list.append(secid)
+                else:
+                    self.result_dict[secid] = volotility
+        sorted_dict = sorted(self.result_dict.items(), key=lambda item: item[1], reverse=True)
+        print (f' Максимальная волатильность:')
+        for item, value in sorted_dict[0:3]:
+            print (f'       {item}  : {value}%')
+        print(f' Минимальная волатильность:  ')
+        for item, value in sorted_dict[:-4:-1]:
+            print(f'       {item}  : {value}%')
+        # print(sorted_dict)
+        print('Нулевые тикеты', self.zero_vol_list)
+
+    def _get_secid_volotility(self, path):
+        with open(file=path) as file:
+            next(file)
+            min_price = 0
+            max_price = 0
+            for line in file:
+                secid, tradetime, price, quantity = line.split(sep=',')
+                price = float(price)
+                if price > max_price:
+                    max_price = price
+                if price < min_price:
+                    min_price = price
+                elif min_price == 0:
+                    min_price = price
+            average_price = (max_price + min_price) / 2
+            volatility = ((max_price - min_price) / average_price) * 100
+            volatility = round(volatility, 2)
+            return secid, volatility
+
+@time_track
+def main():
+    probe = VolatilityAnalyzer(path='trades')
+    probe.run()
+
+if __name__ == '__main__':
+    main()
