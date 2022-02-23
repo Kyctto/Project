@@ -65,7 +65,7 @@
 #
 # Для плавного перехода к мультипоточности, код оформить в обьектном стиле, используя следующий каркас
 import os
-from pprint import pprint
+from  lesson_012.python_snippets.utils import time_track
 
 
 class VolatilityAnalyzer:
@@ -78,7 +78,6 @@ class VolatilityAnalyzer:
         for dirpath, dirnames, filenames in os.walk(self.path):
             for file in filenames:
                 full_path = os.path.join(dirpath, file)
-                # print(full_path)
                 secid, volotility = self._get_secid_volotility(path = full_path)
                 if volotility == 0.0:
                     self.zero_vol_list.append(secid)
@@ -113,8 +112,10 @@ class VolatilityAnalyzer:
             volatility = round(volatility, 2)
             return secid, volatility
 
+@time_track
+def main():
+    probe = VolatilityAnalyzer(path='trades')
+    probe.run()
 
-
-probe = VolatilityAnalyzer(path='trades')
-probe.run()
-
+if __name__ == '__main__':
+    main()
