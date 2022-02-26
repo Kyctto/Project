@@ -54,12 +54,6 @@ class VolatilityAnalyzer(multiprocessing.Process):
                             self.zero_vol_list.append(data[0])
                         else:
                             self.result_dict[data[0]] = data[1]
-                    # while not collector.empty():
-                    #     data = collector.get()
-                    #     # if analyzer.volotility == 0.0:
-                    #     #     self.zero_vol_list.append(analyzer.secid)
-                    #     self.result_dict[analyzer.secid] = analyzer.volotility
-
         else:
             self.secid, self.volotility = self._get_secid_volotility(path=self.path)
             self.collector.put([self.secid, self.volotility])
@@ -96,9 +90,6 @@ def main():
     for item, value in sorted_dict[:-4:-1]:
         print(f'       {item}  : {value}%')
     print('Нулевые тикеты', probe.zero_vol_list)
-    # print(probe.result_dict)
-    # while not collector.empty():
-    #     data = collector.get()
-    #     print(data)
+
 if __name__ == '__main__':
     main()
