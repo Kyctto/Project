@@ -78,7 +78,7 @@ class VolatilityAnalyzer:
         for dirpath, dirnames, filenames in os.walk(self.path):
             for file in filenames:
                 full_path = os.path.join(dirpath, file)
-                secid, volotility = self._get_secid_volotility(path = full_path)
+                secid, volotility = self._get_secid_volotility(path=full_path)
                 if volotility == 0.0:
                     self.zero_vol_list.append(secid)
                 else:

@@ -17,10 +17,6 @@
 #       ТИКЕР7, ТИКЕР8, ТИКЕР9, ТИКЕР10, ТИКЕР11, ТИКЕР12
 # Волатильности указывать в порядке убывания. Тикеры с нулевой волатильностью упорядочить по имени.
 #
-# TODO Внимание! это задание можно выполнять только после зачета lesson_012/01_volatility.py !!!
-
-# TODO тут ваш код в многопоточном стиле
-
 
 import os
 import threading
@@ -38,8 +34,6 @@ class VolatilityAnalyzer(threading.Thread):
         self.volotility = 0
         self.secid = None
     def run(self):
-        # self.result_dict = {}
-        # self.zero_vol_list = []
         if os.path.isdir(self.path):
             for dirpath, dirnames, filenames in os.walk(self.path):
                 for file in filenames:
