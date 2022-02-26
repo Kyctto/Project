@@ -98,5 +98,7 @@ def main():
     for item, value in sorted_dict[:-4:-1]:
         print(f'       {item}  : {value}%')
     print('Нулевые тикеты', probe.zero_vol_list)
+
+
 if __name__ == '__main__':
     main()
